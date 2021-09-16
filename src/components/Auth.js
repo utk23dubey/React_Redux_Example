@@ -1,29 +1,76 @@
 import classes from "./Auth.module.css";
-import { useDispatch } from "react-redux";
-import { authActions } from "../store/auth";
-const Auth = () => {
-  const dispatch = useDispatch();
-  const login = (e) => {
+import { Component } from "react";
+import { useDispatch, connect } from "react-redux";
+import { authActions } from "../store/auth/auth";
+
+// const Auth = () => {
+//   const dispatch = useDispatch();
+//   const login = (e) => {
+//     e.preventDefault();
+//     dispatch(authActions.login());
+//   };
+//   return (
+//     <main className={classes.auth}>
+//       <section>
+//         <form>
+//           <div className={classes.control}>
+//             <label htmlFor="email">Email</label>
+//             <input type="email" id="email" />
+//           </div>
+//           <div className={classes.control}>
+//             <label htmlFor="password">Password</label>
+//             <input type="password" id="password" />
+//           </div>
+//           <button onClick={login}> Login</button>
+//         </form>
+//       </section>
+//     </main>
+//   );
+// };
+
+class Auth extends Component {
+  constructor(props) {
+    super(props);
+  }
+
+  login(e) {
     e.preventDefault();
-    dispatch(authActions.login());
+    this.props.login();
+  }
+
+  componentDidMount() {
+    console.log("Component is mounted");
+  }
+  componetWillUnmount() {
+    console.log("Component is unmounted");
+  }
+  render() {
+    return (
+      <main className={classes.auth}>
+        <section>
+          <form>
+            <div className={classes.control}>
+              <label htmlFor="email">Email</label>
+              <input type="email" id="email" />
+            </div>
+            <div className={classes.control}>
+              <label htmlFor="password">Password</label>
+              <input type="password" id="password" />
+            </div>
+            <button onClick={this.login.bind(this)}> Login</button>
+          </form>
+        </section>
+      </main>
+    );
+  }
+}
+const mapStateToProps = (state) => {
+  return {};
+};
+const mapDispatchToProps = (dispatch) => {
+  return {
+    login: () => dispatch(authActions.login()),
   };
-  return (
-    <main className={classes.auth}>
-      <section>
-        <form>
-          <div className={classes.control}>
-            <label htmlFor="email">Email</label>
-            <input type="email" id="email" />
-          </div>
-          <div className={classes.control}>
-            <label htmlFor="password">Password</label>
-            <input type="password" id="password" />
-          </div>
-          <button onClick={login}> Login</button>
-        </form>
-      </section>
-    </main>
-  );
 };
 
-export default Auth;
+export default connect(mapStateToProps, mapDispatchToProps)(Auth);
