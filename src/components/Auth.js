@@ -1,7 +1,7 @@
 import classes from "./Auth.module.css";
 import { Component } from "react";
 import { useDispatch, connect } from "react-redux";
-import { authActions } from "../store/auth/auth";
+import * as actionTypes from "../store/auth/action";
 
 // const Auth = () => {
 //   const dispatch = useDispatch();
@@ -69,7 +69,7 @@ const mapStateToProps = (state) => {
 };
 const mapDispatchToProps = (dispatch) => {
   return {
-    login: () => dispatch(authActions.login()),
+    login: () => dispatch({ type: actionTypes.login }),
   };
 };
 

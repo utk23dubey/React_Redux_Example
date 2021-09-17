@@ -1,6 +1,6 @@
 import classes from "./Counter.module.css";
 import { useDispatch, useSelector, connect } from "react-redux";
-import { counterActions } from "../store/counter/counter";
+import * as actionTypes from "../store/counter/action";
 import { Component } from "react";
 
 class Counter extends Component {
@@ -18,6 +18,7 @@ class Counter extends Component {
 
   toggleCounterHandler() {
     this.props.toggle();
+    this.props.getEmployee();
   }
 
   render() {
@@ -54,9 +55,10 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    increment: () => dispatch(counterActions.increment()),
-    decrement: () => dispatch(counterActions.decrement()),
-    toggle: () => dispatch(counterActions.toggleCounter()),
+    increment: () => dispatch({ type: actionTypes.increment }),
+    decrement: () => dispatch({ type: actionTypes.decrement }),
+    toggle: () => dispatch({ type: actionTypes.toggleContaoner }),
+    getEmployee: () => dispatch({ type: actionTypes.employee_requested }),
   };
 };
 
